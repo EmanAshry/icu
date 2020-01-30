@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1579318083 source:c:\users\ema\desktop\sprints_challanges\task2\gpio.c
+	"std_types.h"
+	"gpio.h"
+	"registers.h"
+
+1578970620 c:\users\ema\desktop\sprints_challanges\task2\std_types.h
+
+1579287159 c:\users\ema\desktop\sprints_challanges\task2\gpio.h
+	"std_types.h"
+
+1579277145 c:\users\ema\desktop\sprints_challanges\task2\registers.h
+	"std_types.h"
+
+1385316878 source:c:\users\ema\desktop\sprints_challanges\task2\main.c
+	<stdio.h>
+	<stdlib.h>
+
