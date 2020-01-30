@@ -8,7 +8,7 @@
 #ifndef SWICU_H_
 #define SWICU_H_
 
-#include "interrupt.h"
+#include <avr/interrupt.h>
 #include "timers.h"
 #include "gpio.h"
 #include "registers.h"

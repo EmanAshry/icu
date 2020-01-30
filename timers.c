@@ -1,6 +1,6 @@
 #include "timers.h"
 #include "gpio.h"
-#include "interrupt.h"
+
 
 /**
  * Description:
@@ -94,7 +94,7 @@ void timer1Init(En_timer1Mode_t en_mode,En_timer1OC_t en_OC,En_timer1perscaler_t
     SETBITS(OCR1AL,Timer_Config_16bit.Timer_OComp_A);
     SETBITS(OCR1BH,(Timer_Config_16bit.Timer_OComp_B<<8));
     SETBITS(OCR1BL,Timer_Config_16bit.Timer_OComp_B);
-    SETBITS(ICR1,u16_initialValue);
+    SETBITS(ICR1,Timer_Config_16bit.Timer_ICU);
     SETBITS(TIMSK,en_interruptMask);
 }
 
@@ -126,7 +126,7 @@ void timer1Stop(void)
 void timer1DelayMs(uint16_t u16_delay_in_ms)
 {
     uint16_t counter=0;
-    timer1Init(T1_COMP_MODE_OCR1A_TOP,T1_OC1A_CLEAR,T0_PRESCALER_64,0x0000,0x00FA,0x0000,0x0000,T1_POLLING);
+    timer1Init(T1_COMP_MODE_OCR1A_TOP,T1_OC1A_CLEAR,T1_PRESCALER_64,0x0000,0x00FA,0x0000,0x0000,T1_POLLING);
     timer1Start();
 
     SETBITS(TIFR,0x10);

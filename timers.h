@@ -27,7 +27,7 @@
 #define SETBITS(REG,MASK) REG|=(MASK)
 #define CLEARBITS(REG,MASK) REG &= ~(MASK)
 
-#define ISCLEAR(REG,MASK) !(REG& (MASK))
+#define ISCLEAR(REG,MASK) !(REG & (MASK))
 
 typedef struct TIM_Config{
 
@@ -79,7 +79,7 @@ typedef enum En_timer0Interrupt_t{
 
 // for timer 1
 typedef enum En_timer1Mode_t{
-	T1_NORMAL_MODE=0x0000,T1_COMP_MODE_OCR1A_TOP=0x0008, T1_COMP_MODE_ICR1_TOP = 0x0018
+	T1_NORMAL_MODE=0x0000,T1_COMP_MODE_OCR1A_TOP=0x0008, T1_COMP_MODE_ICR1_TOP = 0x0018 , T1_FASTPWM = 0x0218
 
 }En_timer1Mode_t;
 typedef enum En_timer1OC_t{
