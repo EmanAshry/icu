@@ -1,7 +1,7 @@
 /*
  * led.c
  */ 
-/////
+
 #include "ledConfig.h"
 #include "led.h"
 

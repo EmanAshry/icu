@@ -12,6 +12,7 @@
 #include "timers.h"
 #include "gpio.h"
 #include "registers.h"
+#include "led.h"
 
 #define SETBITS(REG,MASK) REG|=(MASK)
 #define CLEARBITS(REG,MASK) REG &= ~(MASK)
@@ -21,8 +22,11 @@ typedef enum EN_SwICU_Edge_t{
 	SwICU_EdgeRisiging = 3
 }EN_SwICU_Edge_t;
 
-extern EN_SwICU_Edge_t Current_Edge = SwICU_EdgeRisiging;
-extern volatile uint8_t * a_pu8_capt;
+volatile uint8_t  pu8_capt;
+EN_SwICU_Edge_t Current_Edge;
+
+extern EN_SwICU_Edge_t Current_Edge;
+extern volatile uint8_t  pu8_capt;
 
 void SwICU_Init(EN_SwICU_Edge_t a_en_inputCaptureEdge);
 EN_SwICU_Edge_t SwICU_GetCfgEdge(void);
