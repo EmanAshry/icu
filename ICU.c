@@ -13,114 +13,54 @@
 volatile uint8_t triger_Flag=0;
 
 ISR(INT2_vect)
-{/*
-	if(Current_Edge==SwICU_EdgeRisiging)
+{
+	if(MCUCSR&(1<<6))     					//check if interrupt from rising edge
 	{
-		timer0Start();
-		SwICU_SetCfgEdge(SwICU_EdgeFalling);
-		Current_Edge = SwICU_EdgeFalling;
+		SwICU_Start();					//Start counting
+		SwICU_SetCfgEdge(SwICU_EdgeFalling);		//change icu interrupt trigger to falling edge
 	}
 	else
 	{
-		timer0Stop();
-		SwICU_Read(&pu8_capt);
-	}
-	*/
-	
-	if(MCUCSR&(1<<6))
-	{
-		SwICU_Start();
-		SwICU_SetCfgEdge(SwICU_EdgeFalling);
-	}
-	else
-	{
-		SwICU_Read(&pu8_capt);
-		SwICU_SetCfgEdge(SwICU_EdgeRisiging);
-		SwICU_Stop();
-		triger_Flag =1;
+		SwICU_Read(&pu8_capt);				//read timer0 counter value
+		SwICU_SetCfgEdge(SwICU_EdgeRisiging);		// change icu interrupt trigger to rising edge
+		SwICU_Stop();					//stop timer0
+		triger_Flag =1;					// set sensor trigger flag to start distance calculation
 	}
 }
 
 int main()
 {
+	/* intialaize LEDS*/
 	Led_Init(LED_0);
 	Led_Init(LED_1);
 	Led_Init(LED_2);
-	Led_Init(LED_3);
-
-	//gpioPortDirection(GPIOB,OUTPUT);
-	
+	Led_Init(LED_3);	
 
 	volatile uint8_t Distance=0;
-	/*
-	Led_On(LED_0);
-	SwICU_Init(SwICU_EdgeRisiging);
-	SwICU_Start();
 	
-	MotorDC_Init(MOT_1);
+	SwICU_Init(SwICU_EdgeRisiging);			//intialaize SwICU with rising edge
+	
+	MotorDC_Init(MOT_1);				//intialaize Motors
 	MotorDC_Init(MOT_2);
 	
-	//MotorDC_Dir(MOT_1,FORWARD);
-	//MotorDC_Dir(MOT_2,FORWARD);
-	HwPWMInit();
+	HwPWMInit();					//intialaize HwPWM
 	
-	Led_On(LED_1);
-	
-	MotorDC_Speed_HwPWM(4);
-	
-	timer0DelayMs(5000);
-	
-	MotorDC_Dir(MOT_1,STOP);
-	MotorDC_Dir(MOT_2,STOP);
-	
-	Led_On(LED_2);
-*/
-	
-	SwICU_Init(SwICU_EdgeRisiging);
-	SwICU_Start();
+	MotorDC_Speed_HwPWM(4);				// move the car with speed 80%
 	
 	while(1)
 	{	
-		if(triger_Flag)
+		if(triger_Flag) 			//check if two ISR for rising and falling edged happened  
 		{
 			Distance = (pu8_capt*0.544);          //Distance in cm
 			
-			gpioPinWrite(GPIOB,BIT1,HIGH);
+			gpioPinWrite(GPIOB,BIT1,HIGH);	      //trigger the sensor
 			timer2DelayMs(1);
 			gpioPinWrite(GPIOB,BIT1,0);
 			
 			triger_Flag=0;
 		}
 		
-		gpioPortWrite(GPIOB,(Distance<<4));
+		gpioPortWrite(GPIOB,(Distance<<4));	      //show the Distance on the leds
 		
-		Led_On(LED_1);
-		
-		//PORTB_DATA = (PORTB_DATA & 0x0F) | (Distance << 4);
-		/*
-		if(ISCLEAR(TIFR,0x01))
-		{
-			Distance = (pu8_capt*16)/58;          //Distance in cm
-		}
-		else
-		{
-			Distance = 15;
-			SETBITS(TIFR,0x01);
-		}
-		
-		if(Distance <= 5)
-		{
-			MotorDC_Dir(MOT_1,STOP);
-			MotorDC_Dir(MOT_2,STOP);
-		}
-		
-		gpioPortWrite(GPIOB,(Distance<<4));
-		
-		Led_On(LED_3);
-		timer0DelayMs(5000);
-		Led_Off(LED_3);
-		*/
 	}
-	
-	return 0;
 }
