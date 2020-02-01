@@ -10,7 +10,7 @@
 #include "HwPWM.h"
 #include "dcMotor.h"
 
-volatile uint8_t triger_Flag=0;
+volatile uint8_t triger_Flag=1;
 
 ISR(INT2_vect)
 {
