@@ -157,7 +157,6 @@ void timer2Init(En_timer2Mode_t en_mode,En_timer2OC_t en_OC,En_timer2perscaler_t
     SETBITS(TCNT2,u8_initialValue);
     SETBITS(TCCR2,(en_mode|en_OC));
     SETBITS(OCR2,u8_outputCompare);
-    // ASSR AS2=0????
     SETBITS(TIMSK,en_interruptMask);
 }
 
@@ -174,7 +173,7 @@ uint8_t timer2Read(void)
 
 void timer2Start(void)
 {
-    SETBITS(TCCR0,Timer_Config.Timer_Pre);
+    SETBITS(TCCR2,Timer_Config.Timer_Pre);
 }
 
 void timer2Stop(void)
@@ -186,7 +185,7 @@ void timer2DelayMs(uint16_t u16_delay_in_ms)
 {
     uint16_t counter=0;
 
-    timer2Init(T0_COMP_MODE,T2_OC2_CLEAR,T2_PRESCALER_64,0x00,0xFA,0x00,T2_POLLING);
+    timer2Init(T2_COMP_MODE,T2_OC2_CLEAR,T2_PRESCALER_64,0x00,0xFA,0x00,T2_POLLING);
     timer2Start();
 
     SETBITS(TIFR,0xFA);
