@@ -95,16 +95,16 @@ void gpioPinDirection(uint8_t u8_port, uint8_t u8_pins, uint8_t u8_direction)
 		switch (u8_port)
 		{
 			case GPIOA:
-			PORTA_DIR &= ~u8_direction;
+			PORTA_DIR &= ~u8_pins;
 			break;
 			case GPIOB:
-			PORTB_DIR &= ~u8_direction;
+			PORTB_DIR &= ~u8_pins;
 			break;
 			case GPIOC:
-			PORTC_DIR &= ~u8_direction;
+			PORTC_DIR &= ~u8_pins;
 			break;
 			case GPIOD:
-			PORTD_DIR &= ~u8_direction;
+			PORTD_DIR &= ~u8_pins;
 			break;
 		}
 		break;
@@ -112,16 +112,16 @@ void gpioPinDirection(uint8_t u8_port, uint8_t u8_pins, uint8_t u8_direction)
 		switch (u8_port)
 		{
 			case GPIOA:
-				PORTA_DIR |= u8_direction;
+				PORTA_DIR |= u8_pins;
 				break;
 			case GPIOB:
-				PORTB_DIR |= u8_direction;
+				PORTB_DIR |= u8_pins;
 				break;
 			case GPIOC:
-				PORTC_DIR |= u8_direction;
+				PORTC_DIR |= u8_pins;
 				break;
 			case GPIOD:
-				PORTD_DIR |= u8_direction;
+				PORTD_DIR |= u8_pins;
 				break;
 		}
 		break;

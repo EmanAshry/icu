@@ -43,7 +43,7 @@ void SwICU_Read(volatile uint8_t * a_pu8_capt)
 void SwICU_Stop(void)
 {
 	timer0Stop();					      // Stop timer0
-                    
+        CLEARBITS(TCNT0,0xFF);				      // clear counter     
 }
 
 void SwICU_Start(void)

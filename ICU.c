@@ -10,7 +10,7 @@
 #include "HwPWM.h"
 #include "dcMotor.h"
 
-volatile uint8_t triger_Flag=1;
+volatile uint8_t triger_Flag=0;
 
 ISR(INT2_vect)
 {
@@ -49,18 +49,24 @@ int main()
 	
 	while(1)
 	{	
+		gpioPinWrite(GPIOB,BIT1,HIGH);	      //trigger the sensor
+		timer2DelayMs(1);
+		gpioPinWrite(GPIOB,BIT1,0);
+
 		if(triger_Flag) 			//check if two ISR for rising and falling edged happened  
 		{
-			Distance = (pu8_capt*0.544);          //Distance in cm
-			
-			gpioPinWrite(GPIOB,BIT1,HIGH);	      //trigger the sensor
-			timer2DelayMs(1);
-			gpioPinWrite(GPIOB,BIT1,0);
-			
+			Distance = (pu8_capt*0.544);          //Distance in cm			
 			triger_Flag=0;
 		}
 		
 		gpioPortWrite(GPIOB,(Distance<<4));	      //show the Distance on the leds
+
+		if(Distance <= 5)			      // stop motors when distance <=5
+		{
+			MotorDC_Dir(MOT_1,STOP);
+			MotorDC_Dir(MOT_2,STOP);
+			
+		}
 		
 	}
 }
