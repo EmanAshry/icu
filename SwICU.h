@@ -22,11 +22,11 @@ typedef enum EN_SwICU_Edge_t{
 	SwICU_EdgeRisiging = 3
 }EN_SwICU_Edge_t;
 
-volatile uint8_t  pu8_capt;
+//volatile uint8_t  pu8_capt;
 EN_SwICU_Edge_t Current_Edge;
 
 extern EN_SwICU_Edge_t Current_Edge;
-extern volatile uint8_t  pu8_capt;
+//extern volatile uint8_t  pu8_capt;
 
 void SwICU_Init(EN_SwICU_Edge_t a_en_inputCaptureEdge);
 EN_SwICU_Edge_t SwICU_GetCfgEdge(void);

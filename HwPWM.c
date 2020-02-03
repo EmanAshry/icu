@@ -25,6 +25,7 @@ void HwPWMSetDuty(uint8_t a_u8_duty, uint32_t a_u32_frequency)
 	SETBITS(OCR1A,ICR_TOP_Value);
 	SETBITS(OCR1B,ICR_TOP_Value);
 	
+	
 	gpioPinWrite(MOTOR_OUT_1A_GPIO,MOTOR_OUT_1A_BIT,HIGH);
 	gpioPinWrite(MOTOR_OUT_1B_GPIO,MOTOR_OUT_1B_BIT,0);
 	
